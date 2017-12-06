@@ -23,48 +23,34 @@ def linefit(x, y):
 
 # N项式拟合
 def polyfit(x, y, degree):
-    numpy.polyfit(x, y, degree)
+    return numpy.polyfit(x, y, degree)
 
 
-# 对数/指数拟合
+# 对数/指数/幂数拟合
 
 def logfunc(x, a, b):
     y = a * log(x) + b
     return y
 
 
-def logfit(x, y, degree):
-    results = {}
-    # coeffs = numpy.polyfit(x, y, degree)
+def logfit(x, y):
     popt, pcov = curve_fit(logfunc, x, y)
-    results['polynomial'] = popt
-
-    # r-squared
-    yhat = logfunc(x, popt[0], popt[1])  # or [p(z) for z in x]
-    ybar = numpy.sum(y) / len(y)  # or sum(y)/len(y)
-    ssreg = numpy.sum((yhat - ybar) ** 2)  # or sum([ (yihat - ybar)**2 for yihat in yhat])
-    sstot = numpy.sum((y - ybar) ** 2)  # or sum([ (yi - ybar)**2 for yi in y])
-    results['determination'] = ssreg / sstot
-
-    return results
+    return popt, pcov
 
 
-def expfunc(x, a, b):
-    y = a * exp(x) + b
-    return y
+def expfunc(x, a, b, c):
+    return a * exp(-b * x) + c
 
 
-def expfit(x, y, degree):
-    results = {}
-    # coeffs = numpy.polyfit(x, y, degree)
+def expfit(x, y):
     popt, pcov = curve_fit(expfunc, x, y)
-    results['polynomial'] = popt
+    return popt, pcov
 
-    # r-squared
-    yhat = expfunc(x, popt[0], popt[1])  # or [p(z) for z in x]
-    ybar = numpy.sum(y) / len(y)  # or sum(y)/len(y)
-    ssreg = numpy.sum((yhat - ybar) ** 2)  # or sum([ (yihat - ybar)**2 for yihat in yhat])
-    sstot = numpy.sum((y - ybar) ** 2)  # or sum([ (yi - ybar)**2 for yi in y])
-    results['determination'] = ssreg / sstot
 
-    return results
+def powerfunc(x, a, b):
+    return x ** a + b
+
+
+def powerfit(x, y):
+    popt, pcov = curve_fit(powerfunc, x, y)
+    return popt, pcov
