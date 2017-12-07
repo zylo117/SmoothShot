@@ -41,8 +41,8 @@ while True:
     else:
         theta = 0
     delta_vector = (old_centroid[0]-new_centroid[0], old_centroid[1]-new_centroid[1], theta)
-    # insert_frame = imutils.translate(frame, old_centroid[0]-new_centroid[0], old_centroid[1]-new_centroid[1])
-    insert_frame = imutils.rotate(frame, np.arctan(theta / 4),(new_centroid[0], new_centroid[1]))
+    insert_frame = imutils.translate(frame, new_centroid[0]-old_centroid[0], new_centroid[1]-old_centroid[1])
+    insert_frame = imutils.rotate(frame, np.arctan(theta / 4), (new_centroid[0], new_centroid[1]))
     # cv2.imshow("insert", blurred)
 
     frame = frame[50:300, 50:350]
